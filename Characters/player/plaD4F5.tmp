@@ -1,0 +1,83 @@
+[gd_scene load_steps=13 format=3 uid="uid://btchwsy5fmw80"]
+
+[ext_resource type="PackedScene" uid="uid://cgyqdrtjl6rtl" path="res://Characters/player.tscn" id="1_lh3su"]
+[ext_resource type="Texture2D" uid="uid://boojl15oeq0qa" path="res://Character pictures/sprite.png" id="2_1ywps"]
+[ext_resource type="Script" path="res://Characters/player/fsm.gd" id="2_2o8u4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_buvi5"]
+atlas = ExtResource("2_1ywps")
+region = Rect2(0, 24, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thp2n"]
+atlas = ExtResource("2_1ywps")
+region = Rect2(16, 24, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0m2bl"]
+atlas = ExtResource("2_1ywps")
+region = Rect2(32, 24, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bcb4"]
+atlas = ExtResource("2_1ywps")
+region = Rect2(48, 24, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ivvt"]
+atlas = ExtResource("2_1ywps")
+region = Rect2(0, 48, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuhun"]
+atlas = ExtResource("2_1ywps")
+region = Rect2(16, 48, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qx1r1"]
+atlas = ExtResource("2_1ywps")
+region = Rect2(32, 48, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8me5s"]
+atlas = ExtResource("2_1ywps")
+region = Rect2(48, 48, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4jifr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_buvi5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thp2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0m2bl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bcb4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ivvt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wuhun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qx1r1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8me5s")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[node name="Player" instance=ExtResource("1_lh3su")]
+script = ExtResource("2_2o8u4")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_4jifr")
+animation = &"run"
+frame = 3
+frame_progress = 0.316284

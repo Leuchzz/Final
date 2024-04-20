@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://dehro0xdctlup"]
+
+[ext_resource type="PackedScene" uid="uid://cgyqdrtjl6rtl" path="res://Characters/character.tscn" id="1_p373q"]
+[ext_resource type="Texture2D" uid="uid://w110u4l4bw66" path="res://items/Boompixel1.png" id="2_4rq8p"]
+[ext_resource type="Texture2D" uid="uid://danibytalihnp" path="res://items/Boompixel0.png" id="3_cw8t4"]
+[ext_resource type="Texture2D" uid="uid://d2j7uqhheyn8a" path="res://items/Boompixel3.png" id="4_fulv6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c5kl8"]
+radius = 28.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4nx05"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4rq8p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cw8t4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fulv6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_s54n3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_cmxxd"]
+resource_name = "explode"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4psmg"]
+_data = {
+"RESET": SubResource("Animation_s54n3"),
+"explode": SubResource("Animation_cmxxd")
+}
+
+[node name="Explosion" instance=ExtResource("1_p373q")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-26, 5)
+shape = SubResource("CircleShape2D_c5kl8")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+position = Vector2(-25, 6)
+scale = Vector2(0.0724638, 0.0841592)
+sprite_frames = SubResource("SpriteFrames_4nx05")
+animation = &"default"
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_4psmg")
+}

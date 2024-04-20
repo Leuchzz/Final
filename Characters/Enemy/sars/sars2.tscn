@@ -1,0 +1,155 @@
+[gd_scene load_steps=14 format=3 uid="uid://dmpoig12a0puw"]
+
+[ext_resource type="PackedScene" uid="uid://2gkl1m0p31cp" path="res://Characters/Enemy/enemy.tscn" id="1_upoet"]
+[ext_resource type="Texture2D" uid="uid://ix2p6sb0kdtv" path="res://Characters/Enemy/idel.png" id="2_qqusu"]
+[ext_resource type="Script" path="res://Characters/Enemy/sars/sarFSM.gd" id="6_ruu47"]
+[ext_resource type="Script" path="res://Characters/Hitbox.gd" id="7_v3yf0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tv7jr"]
+radius = 35.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysnoo"]
+atlas = ExtResource("2_qqusu")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csd0j"]
+atlas = ExtResource("2_qqusu")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ggupr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysnoo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csd0j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_5v8ca"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_i626n"]
+resource_name = "death"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_jac4k"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jnx73"]
+_data = {
+"RESET": SubResource("Animation_5v8ca"),
+"death": SubResource("Animation_i626n"),
+"walk": SubResource("Animation_jac4k")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v558o"]
+radius = 35.0571
+
+[node name="Sars" instance=ExtResource("1_upoet")]
+max_speed = 80
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_tv7jr")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+position = Vector2(-1, -36)
+scale = Vector2(2.70125, 2.66375)
+sprite_frames = SubResource("SpriteFrames_ggupr")
+animation = &"default"
+
+[node name="FiniteStateMachine" parent="." index="2"]
+script = ExtResource("6_ruu47")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_jnx73")
+}
+
+[node name="Hitbox" type="Area2D" parent="." index="5"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("7_v3yf0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_v558o")

@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://buwqwrxbpidwg"]
+
+[ext_resource type="PackedScene" uid="uid://ckackewjgs8e5" path="res://Rooms/room.tscn" id="1_yjbqk"]
+[ext_resource type="TileSet" uid="uid://eubflccx78hi" path="res://Tiles/Tiles.tres" id="2_2b0pu"]
+[ext_resource type="Script" path="res://Rooms/room0.gd" id="2_bornl"]
+[ext_resource type="PackedScene" uid="uid://tokgmaffoxhy" path="res://Rooms/door.tscn" id="3_j1ys6"]
+[ext_resource type="PackedScene" uid="uid://crdf7athv3chf" path="res://Characters/player/player.tscn" id="4_2aodi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5v4sw"]
+size = Vector2(58.5, 17.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_coy75"]
+size = Vector2(57, 20)
+
+[node name="Room0" instance=ExtResource("1_yjbqk")]
+script = ExtResource("2_bornl")
+
+[node name="TileMap" parent="." index="0"]
+tile_set = ExtResource("2_2b0pu")
+layer_0/tile_data = PackedInt32Array(0, 2, 0, 65536, 65538, 1610612736, 131072, 65538, 1610612736, 196608, 65538, 1610612736, 262144, 65538, 1610612736, 327680, 65538, 1610612736, 393216, 65538, 1610612736, 458752, 65538, 1610612736, 65537, 65538, 1, 131073, 65538, 1, 196609, 65538, 1, 262145, 65538, 1, 327681, 65538, 1, 393217, 65538, 1, 458753, 65538, 1, 65538, 65538, 1, 131074, 65538, 1, 196610, 65538, 1, 262146, 65538, 1, 327682, 65538, 1, 393218, 65538, 1, 458754, 65538, 1, 65539, 65538, 1, 131075, 65538, 1, 196611, 393218, 0, 262147, 65538, 1, 327683, 65538, 1, 393219, 393218, 0, 458755, 65538, 1, 65540, 65538, 1, 131076, 65538, 1, 196612, 65538, 1, 262148, 65538, 1, 327684, 65538, 1, 393220, 65538, 1, 458756, 65538, 1, 5, 65538, 0, 65541, 65538, 1, 131077, 65538, 1, 196613, 65538, 1, 262149, 65538, 1, 327685, 65538, 1, 393221, 65538, 1, 458757, 65538, 1, 6, 65538, 0, 65542, 65538, 1, 131078, 65538, 1, 196614, 393218, 0, 262150, 65538, 1, 327686, 65538, 1, 393222, 393218, 0, 458758, 65538, 1, 7, 65538, 0, 65543, 65538, 1, 131079, 65538, 1, 196615, 65538, 1, 262151, 65538, 1, 327687, 65538, 1, 393223, 65538, 1, 458759, 65538, 1, 8, 65538, 0, 65544, 65538, 1, 131080, 65538, 1, 196616, 393218, 0, 262152, 65538, 1, 327688, 65538, 1, 393224, 393218, 0, 458760, 65538, 1, 9, 65538, 0, 65545, 65538, 1, 131081, 65538, 1, 196617, 65538, 1, 262153, 65538, 1, 327689, 65538, 1, 393225, 65538, 1, 458761, 65538, 1, 10, 65538, 0, 65546, 65538, 1, 131082, 65538, 1, 196618, 65538, 1, 262154, 65538, 1, 327690, 65538, 1, 393226, 65538, 1, 458762, 65538, 1, 11, 65538, 0, 65547, 65538, 1, 131083, 65538, 1, 196619, 393218, 0, 262155, 65538, 1, 327691, 65538, 1, 393227, 393218, 0, 458763, 65538, 1, 12, 65538, 0, 65548, 65538, 1, 131084, 65538, 1, 196620, 65538, 1, 262156, 65538, 1, 327692, 65538, 1, 393228, 65538, 1, 458764, 65538, 1, 13, 65538, 0, 65549, 65538, 1, 131085, 65538, 1, 196621, 65538, 1, 262157, 65538, 1, 327693, 65538, 1, 393229, 65538, 1, 458765, 65538, 1, 14, 2, 1342177280, 65550, 65538, 1342177280, 131086, 65538, 1342177280, 196622, 65538, 1342177280, 262158, 65538, 1342177280, 327694, 65538, 1342177280, 393230, 65538, 1342177280, 458766, 65538, 1342177280, 4, 65538, 0, 1, 65538, 0)
+
+[node name="TileMap2" parent="." index="1"]
+tile_set = ExtResource("2_2b0pu")
+rendering_quadrant_size = 32
+layer_0/tile_data = PackedInt32Array(524296, 65538, 805306368, 524289, 65538, 805306368, 524290, 65538, 805306368, 524291, 65538, 805306368, 524292, 65538, 805306368, 524293, 65538, 805306368, 524294, 65538, 805306368, 524295, 65538, 805306368, 524300, 65538, 805306368, 524299, 65538, 805306368, 524301, 65538, 805306368, 524288, 2, 1610612736, 524302, 131074, 0)
+
+[node name="Entrance" parent="." index="2"]
+position = Vector2(1, 74)
+
+[node name="Marker2D2" type="Marker2D" parent="Entrance" index="0"]
+position = Vector2(299, 238)
+rotation = 3.14159
+scale = Vector2(270155, -5.01942e+06)
+
+[node name="Marker2D" type="Marker2D" parent="Entrance" index="1"]
+position = Vector2(333, 238)
+scale = Vector2(-270155, 5.01942e+06)
+
+[node name="EnemyPositions" parent="." index="3"]
+position = Vector2(1, 29)
+
+[node name="Marker2D" type="Marker2D" parent="EnemyPositions" index="0"]
+position = Vector2(113, 39)
+
+[node name="Marker2D2" type="Marker2D" parent="EnemyPositions" index="1"]
+position = Vector2(371, 34)
+
+[node name="Doors" parent="." index="4"]
+position = Vector2(19, 4)
+
+[node name="Door" parent="Doors" index="0" instance=ExtResource("3_j1ys6")]
+position = Vector2(40, -3)
+
+[node name="Player" parent="." index="5" instance=ExtResource("4_2aodi")]
+position = Vector2(325, 296)
+max_hp = null
+hp = null
+accerelation = null
+max_speed = null
+flying = null
+
+[node name="PlayerDetector" parent="." index="6"]
+position = Vector2(43, 3)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" index="0"]
+position = Vector2(277, 220)
+shape = SubResource("RectangleShape2D_5v4sw")
+
+[node name="Area2D" type="Area2D" parent="." index="7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(96, 3)
+shape = SubResource("RectangleShape2D_coy75")
+
+[connection signal="area_shape_exited" from="Area2D" to="." method="_on_area_2d_area_shape_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]

@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bi2clrqv60mph"]
+
+[ext_resource type="PackedScene" uid="uid://cgyqdrtjl6rtl" path="res://Characters/character.tscn" id="1_lqtse"]
+[ext_resource type="Texture2D" uid="uid://c1txcxr8368s6" path="res://Character pictures/idel.png" id="1_vkul0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ej3ig"]
+radius = 50.448
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxr8p"]
+atlas = ExtResource("1_vkul0")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eia8m"]
+atlas = ExtResource("1_vkul0")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1rrf2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxr8p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eia8m")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="Woo Han" instance=ExtResource("1_lqtse")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_ej3ig")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+position = Vector2(3, -57)
+scale = Vector2(4.18, 4.085)
+sprite_frames = SubResource("SpriteFrames_1rrf2")
+animation = &"idle"

@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dy6w6pj2v3tus"]
+
+[ext_resource type="Script" path="res://Weapon.gd" id="1_t5w02"]
+[ext_resource type="Texture2D" uid="uid://bbdfrfsod24od" path="res://items/bomb0.png" id="2_fdn37"]
+[ext_resource type="Script" path="res://Characters/player/Stick.gd" id="3_fv36o"]
+[ext_resource type="Script" path="res://Characters/Hitbox.gd" id="4_f2fg0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smxxw"]
+
+[node name="Weapon" type="Node2D"]
+script = ExtResource("1_t5w02")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(0, -9.53674e-07)
+rotation = 2.0944
+
+[node name="Stick" type="Sprite2D" parent="Node2D"]
+position = Vector2(-11.9904, 9.23205)
+rotation = 0.783653
+scale = Vector2(-0.015, -0.014)
+texture = ExtResource("2_fdn37")
+offset = Vector2(-9.375, -7.03)
+script = ExtResource("3_fv36o")
+
+[node name="Hitbox" type="Area2D" parent="Node2D/Stick"]
+collision_layer = 0
+script = ExtResource("4_f2fg0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Stick/Hitbox"]
+position = Vector2(-7.17785, -5.97503)
+rotation = 0.649262
+scale = Vector2(1.31, 0.55)
+shape = SubResource("RectangleShape2D_smxxw")

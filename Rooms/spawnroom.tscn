@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://cs2f34v3sb8dl"]
+
+[ext_resource type="PackedScene" uid="uid://ckackewjgs8e5" path="res://Rooms/room.tscn" id="1_v7pt6"]
+[ext_resource type="Script" path="res://Rooms/spawnroom.gd" id="2_homcq"]
+[ext_resource type="TileSet" uid="uid://eubflccx78hi" path="res://Tiles/Tiles.tres" id="2_wicxx"]
+[ext_resource type="PackedScene" uid="uid://tokgmaffoxhy" path="res://Rooms/door.tscn" id="3_r6xuf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iciq6"]
+size = Vector2(58.5, 42.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwmqs"]
+size = Vector2(57, 20)
+
+[node name="Spawnroom" instance=ExtResource("1_v7pt6")]
+script = ExtResource("2_homcq")
+
+[node name="TileMap" parent="." index="0"]
+tile_set = ExtResource("2_wicxx")
+layer_0/tile_data = PackedInt32Array(5, 2, 0, 8, 2, 1342177280, 65541, 65538, 1610612736, 131077, 65538, 1610612736, 196613, 65538, 1610612736, 65544, 65538, 1342177280, 131080, 65538, 1342177280, 196616, 65538, 1342177280, 262152, 65538, 1342177280, 262149, 65538, 1610612736, 327685, 2, 1610612736, 327686, 65538, 805306368, 327687, 65538, 805306368, 327688, 131074, 0, 65542, 65538, 1, 65543, 65538, 1, 131079, 65538, 1, 196615, 65538, 1, 196614, 65538, 1, 131078, 65538, 1, 262150, 65538, 1, 262151, 65538, 1)
+
+[node name="TileMap2" parent="." index="1"]
+tile_set = ExtResource("2_wicxx")
+rendering_quadrant_size = 32
+
+[node name="Entrance" parent="." index="2"]
+position = Vector2(1, 74)
+
+[node name="EnemyPositions" parent="." index="3"]
+position = Vector2(1, 29)
+
+[node name="Doors" parent="." index="4"]
+position = Vector2(19, 4)
+
+[node name="Door" parent="Doors" index="0" instance=ExtResource("3_r6xuf")]
+position = Vector2(168, -2)
+
+[node name="PlayerDetector" parent="." index="5"]
+position = Vector2(43, 3)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" index="0"]
+position = Vector2(182, 47)
+shape = SubResource("RectangleShape2D_iciq6")
+
+[node name="PlayerSpawnPos" type="Marker2D" parent="." index="6"]
+position = Vector2(220, 136)
+
+[node name="Area2D" type="Area2D" parent="." index="7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(224, -6)
+shape = SubResource("RectangleShape2D_uwmqs")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

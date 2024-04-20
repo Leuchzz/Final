@@ -1,0 +1,31 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbbqs0bcw1vk1"]
+
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_4y53r"]
+[ext_resource type="Script" path="res://scenes/UI.gd" id="1_d5vgm"]
+[ext_resource type="Texture2D" uid="uid://bfd57xa8raq0u" path="res://UI/health_ui.png" id="1_ob1c6"]
+[ext_resource type="Texture2D" uid="uid://b2os5kpa5qbtx" path="res://UI/progress bar.png" id="2_o1ieh"]
+[ext_resource type="PackedScene" uid="uid://crdf7athv3chf" path="res://Characters/player/player.tscn" id="2_ypbfl"]
+[ext_resource type="Script" path="res://scenes/Rooms.gd" id="4_tqe1j"]
+[ext_resource type="PackedScene" uid="uid://cs2f34v3sb8dl" path="res://Rooms/spawnroom.tscn" id="6_3vd8j"]
+
+[node name="Game" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_4y53r")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("1_d5vgm")
+
+[node name="HealthBar" type="TextureProgressBar" parent="UI"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_over = ExtResource("1_ob1c6")
+texture_progress = ExtResource("2_o1ieh")
+tint_progress = Color(0.443137, 0.0156863, 0, 1)
+
+[node name="Rooms" type="Node2D" parent="."]
+script = ExtResource("4_tqe1j")
+
+[node name="Spawnroom" parent="Rooms" instance=ExtResource("6_3vd8j")]
+
+[node name="Player" parent="." instance=ExtResource("2_ypbfl")]
+position = Vector2(220, 136)

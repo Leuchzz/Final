@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://2gkl1m0p31cp"]
+
+[ext_resource type="PackedScene" uid="uid://cgyqdrtjl6rtl" path="res://Characters/character.tscn" id="1_a4hnt"]
+[ext_resource type="Script" path="res://Characters/Enemy/enemy.gd" id="2_oe6s7"]
+
+[node name="Enemy" instance=ExtResource("1_a4hnt")]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("2_oe6s7")
+max_hp = null
+accerelation = null
+max_speed = null
+flying = null
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="0"]
+
+[node name="PathTimer" type="Timer" parent="." index="5"]
+
+[connection signal="timeout" from="PathTimer" to="." method="_on_path_timer_timeout"]

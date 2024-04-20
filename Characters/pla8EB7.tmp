@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgyqdrtjl6rtl"]
+
+[ext_resource type="Script" path="res://Characters/character.gd" id="1_bq2up"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2vdcp"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_ig8cp"]
+script/source = "extends Node
+
+
+var states: Dictionary = {}
+var previous_state: int = -1
+var state: int = -1: set = set_state
+
+@onready var parent: Character = get_parent()
+@onready var animation_player: AnimationPlayer = parent.get_node(\"AnimationPlayer\")
+
+
+func _physics_process(delta: float) -> void:
+	if state != -1:
+		_state_logic(delta)
+		var transition: int = _get_transition()
+		if transition != -1:
+			set_state(transition)
+
+
+func _state_logic(_delta: float) -> void:
+	pass
+
+
+func _get_transition() -> int:
+	return -1
+
+
+func _add_state(new_state: String) -> void:
+	states[new_state] = states.size()
+
+
+func set_state(new_state: int) -> void:
+	_exit_state(state)
+	previous_state = state
+	state = new_state
+	_enter_state(previous_state, state)
+
+
+func _enter_state(_previous_state: int, _new_state: int) -> void:
+	pass
+
+
+func _exit_state(_state_exited: int) -> void:
+	pass
+"
+
+[node name="Character" type="CharacterBody2D"]
+script = ExtResource("1_bq2up")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2vdcp")
+animation = &"Run"
+frame_progress = 0.265752
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="FiniteStateMachine" type="Node" parent="."]
+script = SubResource("GDScript_ig8cp")

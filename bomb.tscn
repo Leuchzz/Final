@@ -1,0 +1,149 @@
+[gd_scene load_steps=10 format=3 uid="uid://dqymkbp2xiuex"]
+
+[ext_resource type="Texture2D" uid="uid://bbdfrfsod24od" path="res://items/bomb0.png" id="1_kbe40"]
+
+[sub_resource type="GDScript" id="GDScript_parhg"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_timer_timeout():
+	pass # Replace with function body.
+	
+
+"
+
+[sub_resource type="GDScript" id="GDScript_063aw"]
+script/source = "extends FiniteStateMachine
+
+
+func _init() -> void:
+	_add_state(\"hot\")
+	
+	
+func _ready() -> void:
+	set_state(states.hot)
+	
+	
+func _state_logic(_delta: float) -> void:
+	if state == states.hot:
+		pass
+		
+		
+func _get_transition() -> int:
+	return -1
+	
+	
+func _enter_state(_previous_state: int, new_state: int) -> void:
+	match new_state:
+		states.hot:
+			animation_player.play(\"hot\")
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mjfkb"]
+radius = 7.0
+
+[sub_resource type="Animation" id="Animation_6ap1v"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_m0tde"]
+resource_name = "hot"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_52gdj"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8xw71"]
+resource_name = "ok"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0mtgr"]
+_data = {
+"RESET": SubResource("Animation_6ap1v"),
+"hot": SubResource("Animation_m0tde"),
+"idle": SubResource("Animation_52gdj"),
+"ok": SubResource("Animation_8xw71")
+}
+
+[node name="Bomb" type="Area2D"]
+disable_mode = 1
+collision_mask = 7
+script = SubResource("GDScript_parhg")
+
+[node name="FiniteStateMachine" type="Node" parent="."]
+script = SubResource("GDScript_063aw")
+
+[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("1_kbe40")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_mjfkb")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.034
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0mtgr")
+}
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

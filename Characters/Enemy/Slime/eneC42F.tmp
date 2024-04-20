@@ -1,0 +1,155 @@
+[gd_scene load_steps=21 format=3 uid="uid://b6j4rybnupryv"]
+
+[ext_resource type="PackedScene" uid="uid://2gkl1m0p31cp" path="res://Characters/Enemy/enemy.tscn" id="1_18efg"]
+[ext_resource type="Texture2D" uid="uid://b5nkcl06cvdto" path="res://Character pictures/Slime Mob.png" id="2_78206"]
+[ext_resource type="Script" path="res://Characters/Enemy/Slime/SlimeFSM.gd" id="3_6lw3t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uqxgt"]
+radius = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jfvm"]
+atlas = ExtResource("2_78206")
+region = Rect2(0, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0oxe"]
+atlas = ExtResource("2_78206")
+region = Rect2(64, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnmqi"]
+atlas = ExtResource("2_78206")
+region = Rect2(128, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwk7n"]
+atlas = ExtResource("2_78206")
+region = Rect2(192, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ionkb"]
+atlas = ExtResource("2_78206")
+region = Rect2(256, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjclu"]
+atlas = ExtResource("2_78206")
+region = Rect2(320, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8wcr"]
+atlas = ExtResource("2_78206")
+region = Rect2(384, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4yrqe"]
+atlas = ExtResource("2_78206")
+region = Rect2(448, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvjjx"]
+atlas = ExtResource("2_78206")
+region = Rect2(512, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjn65"]
+atlas = ExtResource("2_78206")
+region = Rect2(576, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3doxa"]
+atlas = ExtResource("2_78206")
+region = Rect2(640, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iodi5"]
+atlas = ExtResource("2_78206")
+region = Rect2(704, 0, 64, 62)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ojjwd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jfvm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0oxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnmqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nwk7n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ionkb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjclu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8wcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4yrqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvjjx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjn65")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3doxa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iodi5")
+}],
+"loop": true,
+"name": &"Slime",
+"speed": 7.0
+}]
+
+[sub_resource type="Animation" id="Animation_1ulq3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ahpvu"]
+resource_name = "fly"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wm2wu"]
+_data = {
+"RESET": SubResource("Animation_1ulq3"),
+"fly": SubResource("Animation_ahpvu")
+}
+
+[node name="Slime" instance=ExtResource("1_18efg")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_uqxgt")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_ojjwd")
+animation = &"Slime"
+
+[node name="FiniteStateMachine" parent="." index="2"]
+script = ExtResource("3_6lw3t")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_wm2wu")
+}
